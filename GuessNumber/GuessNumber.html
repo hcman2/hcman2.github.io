@@ -83,22 +83,20 @@
         <button class="submit">GO</button>
     </div>
     <form action="">
-        <output>範圍0-100</output>
+        <output>Range:0-100</output>
     </form>
     <div class="btn-area">
-        <button class="gameover">偷看答案</button>
-        <button class="reset">重來</button>
-        <button class="haha">我不玩了</button>
+        <button class="gameover">Show Answer</button>
+        <button class="reset">Replay</button>
+        <button class="haha">Quit</button>
     </div>
     </div>
 
     <script>
 
         const ansNum = Math.round(Math.random() * 99);
-        document.write("<br>公測版，先大家看答案去試試<br>答案:  " + ansNum)
-        // 解除上行註解可以show答案在html上
+        document.write("<br>This is answer.<br>Try me:  " + ansNum)
 
-        //取得需要的DOM
         let myInput = document.querySelector('input')
         let submit = document.querySelector('.submit')
         let myOutput = document.querySelector('output')
@@ -108,13 +106,10 @@
         let nMin = 0;
         let nMax = 100;
 
-
-        //用console.log確認型別
         console.log(typeof ansNum)
         console.log(typeof nMin)
         console.log(typeof nMax)
 
-        //用console.log確認有沒有正確抓到
         console.log(myInput)
         console.log(submit)
         console.log(myOutput)
@@ -129,13 +124,11 @@
             window.location.reload();
         })
         haha.addEventListener("click", function () {
-            myOutput.innerText = "弱";
+            myOutput.innerText = "Don't Quit";
         })
 
-        //輸入後點GO button可以判斷
         submit.addEventListener("click", adjustment);
 
-        //輸入後按enter可以判斷
         myInput.addEventListener("keydown", function (e) {
             if (e.keyCode === 13) {
                 adjustment();
@@ -149,26 +142,22 @@
                 let guessNum = myInput.value;
                 let firstNum = guessNum.charAt(0);
                 
-                //判斷空值
                 if (guessNum == ""){
-                    myOutput.innerText = "你沒輸入數字"
+                    myOutput.innerText = "no input"
                 }
-
-                //判斷非正整數
                 else if (isNaN(guessNum) == true || firstNum =="0" || guessNum.includes(".")|| guessNum.includes("-")){
-                    myOutput.innerText = "請輸入非0開頭的正整數"
+                    myOutput.innerText = "Not positive input"
                     myInput.value = ``;
                 }
                 else if (guessNum == ansNum) {
-                    myOutput.innerText = "猜中了 " + ansNum;
+                    myOutput.innerText = "Gotcha " + ansNum;
                     submit.disabled = true;
                     myInput.disabled = true;
                     gameOver.disabled = true;
                     haha.disabled = true;
                 }   
-
                 else if (guessNum <= nMin || guessNum >= nMax) {
-                    myOutput.innerText = "超出範圍" + nMin + "-" + nMax;
+                    myOutput.innerText = "Out of range " + nMin + "-" + nMax;
                     myInput.value = ``;
                 }
                 else if (guessNum > ansNum) {
@@ -182,7 +171,7 @@
                     myInput.value = ``;
                 }
                 else {
-                    myOutput.innerText = "你找到bug請洽開發者";
+                    myOutput.innerText = "You found a bug.";
                     myInput.value = ``;
                 }
                 break;
